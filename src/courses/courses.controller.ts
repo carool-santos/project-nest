@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post} from '@nestjs/common';
 import { response } from 'express';
+import { threadId } from 'worker_threads';
 import { CoursesService } from './courses.service';
 
 @Controller('courses')
@@ -9,28 +10,28 @@ export class CoursesController {
     ){}
 
     @Get()
-    findAll(@Res() response){
-        return response.status(200).send('Todos os cursos');
+    findAll(){
+        return this.coursesService.findAll();
     }
+    
     @Get(':id')
-    findOne( @Param('id')id :string ) : string{
-        return `Curso # ${id}`;
+    findOne(@Param('id') id: string){
+        return this.coursesService.findOne(id);
     }
 
     @Post()
-    @HttpCode(HttpStatus.NO_CONTENT)
-    create(@Body('name')body){ 
-        return body;
+    async create(@Body()body ){
+        return this.coursesService.create(body);
     }
 
    @Patch(':id')
-   update(@Param('id') id: string, @Body('name') body){
-       return  `Atualização do Curso # ${id}`;
+   update(@Param('id') id: string, @Body() body){
+       return  this.coursesService.update(id, body);
    }
 
    @Delete(':id')
    remove( @Param('id') id :string ){
-       return `Exclusão do curso # ${id}`;
+       return this.coursesService.remove(id);
    }
 
 }

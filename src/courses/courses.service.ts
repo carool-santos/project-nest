@@ -6,9 +6,9 @@ export class CoursesService {
     private courses: Course[] = [
         {
             id: 1,
-            name: "Fundamentos redes e internet",
-            description: "Aprender os fundamentos de redes e internet",
-            tags:['internet', 'base', 'redes'],
+            name: "Fundamentos Nest",
+            description: "Aprender os fundamentos de Nest",
+            tags:['Node', 'JavaScript', 'TypeScript'],
         },
     ];
 
